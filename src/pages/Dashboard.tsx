@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { sendGetPlayerStatsRequest, getLookupHistory, postLookupHistory } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
-// --> Logout functie toevoegen
+// --> Logout functie
 const logout = () => {
     localStorage.removeItem("currentUser");
     window.location.href = "/login"; // redirect
 };
 
 const Dashboard: React.FC = () => {
+    const navigate = useNavigate(); // <-- voor navigatie naar andere pagina
     const [currentUser, setCurrentUser] = useState<string>(''); // ingelogde gebruiker
     const [name, setName] = useState<string>(''); // username om op te zoeken
     const [stats, setStats] = useState<any>(null);
@@ -57,23 +59,38 @@ const Dashboard: React.FC = () => {
         }
     };
 
+    // Navigatie naar GE Lookup pagina
+    const goToGeLookup = () => {
+        navigate('/ge'); // pad naar je GE pagina
+    };
+
     return (
         <div className="min-h-screen flex flex-col items-center bg-white p-5">
 
-            {/* Topbar met ingelogde user */}
+            {/* Topbar met GE knop altijd zichtbaar */}
             <div className="w-full max-w-3xl flex justify-end items-center mb-4 gap-4 text-gray-800 font-semibold">
                 {currentUser ? (
-                    <>
-                        <span className="text-sm">Logged in as {currentUser}</span>
-                        <button
-                            onClick={logout}
-                            className="bg-red-600 text-white py-2 px-5 rounded-full hover:bg-red-700 transition font-semibold shadow-md"
-                        >
-                            Logout
-                        </button>
-                    </>
+                    <span className="text-sm">Logged in as {currentUser}</span>
                 ) : (
-                    'Not logged in'
+                    <span className="text-sm">Not logged in</span>
+                )}
+
+                {/* GE Lookup knop altijd zichtbaar */}
+                <button
+                    onClick={goToGeLookup}
+                    className="bg-blue-600 text-white py-2 px-5 rounded-full hover:bg-blue-700 transition font-semibold shadow-md"
+                >
+                    GE Lookup
+                </button>
+
+                {/* Logout knop alleen als ingelogd */}
+                {currentUser && (
+                    <button
+                        onClick={logout}
+                        className="bg-red-600 text-white py-2 px-5 rounded-full hover:bg-red-700 transition font-semibold shadow-md"
+                    >
+                        Logout
+                    </button>
                 )}
             </div>
 
