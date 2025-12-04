@@ -11,3 +11,4 @@ export async function getGePriceHistory(itemId: number) {
     if (!res.ok) throw new Error("Failed to fetch history");
     return res.json();
 }
+
