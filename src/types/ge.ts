@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api/ge";
+import { API_BASE_URL } from '../services/api'; // dezelfde import als bij login/register
 
 export async function getGePrice(itemId: number) {
     const res = await fetch(`${API_BASE_URL}/${itemId}/price`);

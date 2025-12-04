@@ -1,4 +1,4 @@
-const API_BASE_URL = 'osrs-backend-d4ctbtdubzdgfxae.westeurope-01.azurewebsites.net';
+export const API_BASE_URL = 'https://osrs-backend-d4ctbtdubzdgfxae.westeurope-01.azurewebsites.net';
 
 // Haal stats van een speler op
 export async function sendGetPlayerStatsRequest(username: string): Promise<any> {
